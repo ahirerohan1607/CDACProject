@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.app.entities.enums.Gender;
 import com.app.entities.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -72,6 +73,9 @@ public class Customer implements Serializable {
 
    // @Column(nullable = false)
     private LocalDate dateOfBirth;
+    
+ // @Column(nullable = false)
+    private Gender gender;
 
 
 	 //one to one association Employee ----> AdharCard
