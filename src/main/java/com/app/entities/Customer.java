@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,8 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.app.entities.enums.AccountType;
+import com.app.entities.enums.CustomerStatus;
+import com.app.entities.enums.CustomerType;
 import com.app.entities.enums.Gender;
-import com.app.entities.enums.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,11 +63,15 @@ public class Customer implements Serializable {
     private List<Account> accounts = new ArrayList<>();
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    protected Address address;
+    private Address address;
     
   //@Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private CustomerStatus customerStatus;
+    
+  //@Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CustomerType customerType;
 
     //@Column(nullable = false)
     private String phoneNumber;
@@ -101,18 +106,45 @@ public class Customer implements Serializable {
 		//this.userStatus = UserStatus.ACTIVE;
 	}
     
- 
-	
 
-
-
-
-
-
-	public void addAccountForUser(Account account) {
-    	accounts.add(account);
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", username=" + username + ", password=" + password + ", customerStatus=" + customerStatus + ", customerType="
+				+ customerType + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
+				+ ", panCardNumber=" + panCardNumber + "]";
 	}
 
+
+
+
+
+	private void addAccount(Account account) {
+		this.accounts.add(account);
+		
+	}
+
+
+
+
+
+	public Account createAccountForCustomer(Customer customer, AccountType accountType, double deposite) {
+		Account account = new Account(customer, accountType, deposite);
+	
+		customer.addAccount(account);
+		return account;
+		
+	}
+
+
+
+
+
+
+
+
+
+	
 
 
 

@@ -33,7 +33,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Loan {
 
     @Id
@@ -75,6 +74,13 @@ public class Loan {
         this.applicationDate = LocalDate.now();
         this.account = account;
     }
+
+	@Override
+	public String toString() {
+		return "Loan [loanId=" + loanId + ", amount=" + amount + ", applicationDate=" + applicationDate
+				+ ", approvalDate=" + approvalDate + ", durationMonths=" + durationMonths + ", account=" + account
+				+ ", loanStatus=" + loanStatus + ", defaultedInstallments=" + defaultedInstallments + "]";
+	}
 
     // Rest of the class...
 }

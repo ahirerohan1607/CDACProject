@@ -88,6 +88,23 @@ public class Transaction implements Serializable {
 		this.amount = amount;
 				
 	}
+
+	@Override
+	public String toString() {
+		return "Transaction [transactionId=" + transactionId + ", transactionStatus=" + transactionStatus
+				+ ", transactionType=" + transactionType + ", transactionDateTime=" + transactionDateTime + ", amount="
+				+ amount + ", transactionMode=" + transactionMode + "]";
+	}
+
+	public Transaction(Account account, TransferFundsAccount tfa, double deposite, TransactionMode transactionMode, TransactionType transactionType) {
+		this(account, tfa, deposite);
+		this.transactionMode = transactionMode;
+		this.transactionType = transactionType;
+	}
+	
+	
+	
+
 	
 	
 	

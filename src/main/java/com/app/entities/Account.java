@@ -20,7 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.app.entities.enums.Status;
+import com.app.entities.enums.AccountStatus;
+import com.app.entities.enums.AccountType;
 import com.app.utils.AccountUtils;
 
 import lombok.Getter;
@@ -29,13 +30,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "accountsFromCDACProject", indexes = {@Index(name = "idx_account_number", columnList = "accountNumber")})
+@Table(name = "accounts", indexes = {@Index(name = "idx_account_number", columnList = "accountNumber")})
 //@Table(name = "accounts")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Account implements Serializable{
 	
 	@Id
@@ -53,14 +53,18 @@ public class Account implements Serializable{
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private AccountStatus accountStatus;
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
     
     
     @OneToMany(mappedBy = "fromAccount", cascade = CascadeType.ALL, orphanRemoval = true /* , fetch = FetchType.EAGER */ )
 	private List<Transaction> transactions = new ArrayList<>();
 
 
-    private LocalDate lastTransactionDate;
+    private LocalDate lastUpdateDate;
 
 	
 	@ManyToOne
@@ -82,6 +86,8 @@ public class Account implements Serializable{
 		this.accountNumber = AccountUtils.generateAccountNumber();
 		this.openDate = LocalDate.now();		
 		this.customer = customer;
+		this.lastUpdateDate = LocalDate.now();
+		
 	}
 
 	public Account(Customer customer, double deposit) {
@@ -90,7 +96,7 @@ public class Account implements Serializable{
 		this.openDate = LocalDate.now();
 		this.customer = customer;
 		balance = deposit;
-		this.lastTransactionDate = LocalDate.now();
+		this.lastUpdateDate = LocalDate.now();
 	}
 
 
@@ -101,8 +107,26 @@ public class Account implements Serializable{
 		this.balance = balance;
 		this.openDate = openDate;
 		this.customer = customer;
+		this.lastUpdateDate = LocalDate.now();
 	}
 
+	@Override
+	public String toString() {
+		return "Account [accountNumber=" + accountNumber + ", balance=" + balance + ", openDate=" + openDate
+				+ ", accountStatus=" + accountStatus + ", accountType=" + accountType + ", lastUpdateDate=" + lastUpdateDate
+				+ ", customer=" + customer + "]";
+	}
+
+	public Account(Customer customer2, AccountType accountType2, double deposite) {
+		this(customer2, deposite);
+		this.accountType = accountType2;
+	}
+
+	public void addTransaction(Transaction transaction) {
+		this.transactions.add(transaction);		
+	}
+
+	
 
 }
 

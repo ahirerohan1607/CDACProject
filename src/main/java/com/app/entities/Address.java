@@ -19,7 +19,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Address extends BaseEntity {
+public class Address extends BaseEntity{
 	@Column(name="address_line1",length=100)
 	private String addressLine1;
 	
@@ -43,12 +43,12 @@ public class Address extends BaseEntity {
 	
 	@OneToOne (fetch = FetchType.LAZY)//mandatory , o.w hib throws MappingExc
 	@JoinColumn(name="customer_id")//optional : to specify name of FK col
-	@MapsId//optional BUT reco : to use shared PK between Emp n Address
+	@MapsId //optional BUT reco : to use shared PK between Emp n Address
 	private Customer customer;
 	
 	
 	public Address() {
-		System.out.println("in def ctor of "+getClass());
+		
 	}
 	
 	
