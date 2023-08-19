@@ -1,0 +1,35 @@
+
+{
+  "firstName": "fname1",
+  "lastName": "lname1",
+  "email": "flname1@gmail.com",
+  "username": "fluser1",
+  "password": "pass1234",
+  "customerType": "STUDENT",
+  "address": {
+    "addressLine1": "adrl1",
+    "addressLine2": "adrl2",
+    "city": "city1",
+    "state": "state1",
+    "country": "country1",
+    "zipCode": "100101"
+  },
+  "phoneNumber": "9900990000",
+  "dateOfBirth": "2000-01-01",
+  "gender": "MALE",
+  "adhaarCard": {
+    "adhaarCardNumber": "123456789001"
+  },
+  "panCardNumber": "123456789001",
+  "beneficiary": {
+    "name": "ben1",
+    "accountNumber": "8000",
+    "beneficiaryBankName": "URVI_BANK",
+    "relation": "SPOUSE"
+  },
+ "deposite": 25000,
+ "accountType": "SAVING"
+}
+
+
+
